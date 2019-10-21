@@ -2,7 +2,8 @@
 
 void ext_int()
 {
-	IO1DIR= (1<<25); // SET THE DIRECTION OF THE BUZZER 
+	IO1DIR= (1<<25);
+	IO0DIR=(1<<31); // SET THE DIRECTION OF THE BUZZER is 25 and LED is 31
 	VPBDIV = 0x00;  		//VPBDIV GIVES US FREQUENCY WE CAN DIVIDE IT BY CHANGES ITS VALUE
 	PINSEL0 = (1<<31);		//SELECT EXTERNAL INTERRUPT PIN
 	EXTMODE = (1<<2);				//FOR LEVEL  TRIGGER OR EDGE  TRIGGER OF PARTICULER EINT 2 
@@ -19,12 +20,14 @@ void External_int(void)__irq          //INTERRUPT SERVICE ROUTINE
 	{
 		i=1;
 		IO1CLR=(1<<25);
+		IO0CLR=(1<<31);
 		
 	}
 	else
 	{
 		i=0;
 		IO1SET=(1<<25);
+		IO0SET=(1<<31);
 	}
 	EXTINT |= (1<<2);
 	VICVectAddr = 0x00;
